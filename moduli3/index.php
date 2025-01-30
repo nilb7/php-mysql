@@ -45,4 +45,23 @@ switch($day){
                         break;
 
 }
+
+
+$x=50;
+for($x = 50; $x <= 100; $x+=2){
+    echo "$x <br>";
+  }
+
+  $students = array("and", "anik", "daris", "nil");
+
+  foreach ($students as $x) {
+    echo "$x <br>";
+  }
+
+$strinng = 'niliB';
+
+while(strlen($strinng) <10 ){
+    echo ($strinng);
+    $strinng=$strinng.'g';
+}
 ?>
