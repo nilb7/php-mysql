@@ -35,6 +35,15 @@
 
     print_r($cars_slice);
 
+    echo ".<br>";
+
+    
+
+    $moshat = [16,14,13,15,16,14,15];
+    $count2=count($moshat);
+    $mes= array_sum($moshat);
+    $mesatarja =($mes / $count2);
+    echo $mesatarja;
 
 
 
