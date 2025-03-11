@@ -18,11 +18,11 @@
     
     <?php
     include_once('config.php');
-    $sql ='SELECT * FROM user';
+    $sql ='SELECT * FROM users';
     $getUsers = $connection->prepare($sql);
     $getUsers->execute();
-    $users = $getUsers->fetchAll();.
-    
+    $users = $getUsers->fetchAll();
+
     ?>
     <table>
         <thead>
