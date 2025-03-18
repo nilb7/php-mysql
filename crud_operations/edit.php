@@ -24,6 +24,21 @@
     <title>Document</title>
 </head>
 <body>
+    <style>
+        form>input{
+            margin-bottom: 10px;
+            font-size: 20px;
+            padding: 5px;
+        }
+        button{
+            background: none;
+            border: none;
+            border: 1px solid black;
+            padding: 10px 40px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
     
 <form action="" method="POST">
 
