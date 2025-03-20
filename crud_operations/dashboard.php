@@ -30,6 +30,8 @@
             <th>Surname</th>
             <th>Email</th>
             <th>Age</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </thead>
     <tbody>
         <?php
@@ -41,6 +43,8 @@
                 <td><?= $user['surname']?></td>
                 <td><?= $user['email']?></td>
                 <td><?= $user['age']?></td>
+                <td><?="<a href='edit.php?id=$user[id]'>Edit User</a>"?></td>
+                <td><?="<a href='delete.php?id=$user[id]'>Delete User</a>"?></td>
             </tr>
             <?php
         }
@@ -48,6 +52,7 @@
     </tbody>
     </table>
     <a href="index.php">Add User</a>
+    
 
 
 
