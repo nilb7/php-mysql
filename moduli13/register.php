@@ -23,7 +23,19 @@
                 echo "Username exists";
                 header ("refresh:2;url=signup.php");
             }else{
-                
+                $sql ="INSERT INTO users(name,surname,username,email,password) VALUES (:name,:surname,:username,:email,:password)";
+                $insertSql=$conn->preapre($sql);
+
+                $insertSql->bindParam(':username', $username);
+                $insertSql->bindParam(':name', $name);
+                $insertSql->bindParam(':surname', $surname);
+                $insertSql->bindParam(':email', $email);
+                $insertSql->bindParam(':password', $password);
+
+                $insertSql->execute();
+
+                echo "Data saved succesfully...";
+                header("refresh:2:url=login.php");
             }
         }
 
