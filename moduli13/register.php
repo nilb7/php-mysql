@@ -7,10 +7,10 @@
         $surname = $_POST['surname'];
         $username = $_POST['username'];
         $email = $_POST['email'];
-        $tempPass = $_POST['paswword'];
+        $tempPass = $_POST['password'];
         $password=password_hash($tempPass,PASSWORD_DEFAULT);
 
-        if(empty($name) || empty($surname) empty($username) || empty($email) || empty($password) ||){
+        if(empty($name) || empty($surname)|| empty($username) || empty($email) || empty($password)){
             echo "You need to fill all the fields";
         }else{
             $sql = "SELECT username FROM users WHERE username=:username";
@@ -24,7 +24,7 @@
                 header ("refresh:2;url=signup.php");
             }else{
                 $sql ="INSERT INTO users(name,surname,username,email,password) VALUES (:name,:surname,:username,:email,:password)";
-                $insertSql=$conn->preapre($sql);
+                $insertSql=$connection->prepare($sql);
 
                 $insertSql->bindParam(':username', $username);
                 $insertSql->bindParam(':name', $name);
