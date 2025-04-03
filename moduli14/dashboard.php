@@ -29,6 +29,13 @@
     </style>
 </head>
 <body>
+        <nav class="nav navbar-dark fixed-top bg-dark flex-md nowrap p-0 shadow">
+            <a href="#" class="navbar-brand col-sm-3 col-md-2n mr-0">Welcome, <i><?php echo $_SESSION['username'];?></i><a>
+                <ul class="nav-item text-nowrap">
+                    <a href="logout.php" class="nav-link">Sign out</a>
+                </ul>
+        </nav>
+
         <?php
     include_once('config.php');
     $sql ='SELECT * FROM users';
