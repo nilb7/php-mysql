@@ -3,6 +3,10 @@
     if(empty($_SESSION['username'])){
         header("Location: login.php")
     }
+    $sql = "SELECT * FROM users";
+    $selectUsers -> execute();
+
+    $user_data = $selectUsers->fetchAll();
 ?>
 
 
