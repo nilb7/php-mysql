@@ -9,7 +9,7 @@ $password = '';
 try{
     $conn = new PDO("mysql:host=$localhost;dbname=$db;", $user, $password);
     echo 'connected';
-}catch(Exception $e){
+}catch(PDOException $e){
     echo 'Something went wrong';
 }
 
