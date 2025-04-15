@@ -45,13 +45,13 @@
 
     ?>
     <tr>
-        <td> <?php $product['id']?></td>
-        <td> <?php $product['title']?></td>
-        <td> <?php $product['description']?></td>
-        <td> <?php $product['qauntity']?></td>
-        <td> <?php $product['price']?></td>
-        <td> <?php "<a href='updateProduct.php?id=$product['id']'>Update</a>"?></td>
-        <td> <?php "<a href='updateProduct.php?id=$product['id']'>Update</a>"?></td>
+        <td> <?= $product['id']?></td>
+        <td> <?= $product['title']?></td>
+        <td> <?= $product['description']?></td>
+        <td> <?= $product['qauntity']?></td>
+        <td> <?= $product['price']?></td>
+        <td> <?= "<a href='updateProduct.php?id=$product['id']'>Update</a>"?></td>
+        <td> <?="<a href='updateProduct.php?id=$product['id']'>Delete</a>"?></td>
     </tr>
     <?php
     }?>
