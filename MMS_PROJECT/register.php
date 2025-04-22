@@ -13,5 +13,13 @@
         $tempConfirm=$_POST['confirm_password'];
         $confirm_password=password_hash($tempConfirm,PASSWORD_DEFAULT);
 
+        if(empty($emri) || empty($username) || empty($password) || empty($password) || empty($confirm_password)){
+            echo "You have not filled in all the fields";
+        }else{
+            $sql="INSERT INTO users(emri,username,email,password,confirm_passwor) VALUES (:emri,:username,:email,:password,:confirm_passwor)";
+
+            $insertSQL=$conn->prepare($sql);
+        }
+
     }
 ?>
