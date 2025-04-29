@@ -97,7 +97,7 @@ $user_data=$selectUser->fetch();
           <label for="floatingInput">Movie Description</label>
         </div>
         <div class="form-floating">
-          <input type="email" class="form-control" id="floatingInput" placeholder="movie_quality" name="movie_quality" value="<?php echo  $user_data['movie_quality'] ?>">
+          <input type="text" class="form-control" id="floatingInput" placeholder="movie_quality" name="movie_quality" value="<?php echo  $user_data['movie_quality'] ?>">
           <label for="floatingInput">Movie Quality</label>
         </div>
 
@@ -131,4 +131,4 @@ $user_data=$selectUser->fetch();
 <h2>Edit user's details</h2>
 <div class="table-responsive">
   
-  <form action="updateUsers.php" method="post">
+  <form action="update.php" method="post">
