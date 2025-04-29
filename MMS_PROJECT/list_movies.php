@@ -14,7 +14,7 @@
           header("Location: login.php");
     }
    
-    $sql = "SELECT * FROM users";
+    $sql = "SELECT * FROM movies";
     $selectUsers = $conn->prepare($sql);
     $selectUsers->execute();
 
@@ -126,9 +126,9 @@
           <thead>
             <tr>
               <th scope="col">Id</th>
-              <th scope="col">Emri</th>
-              <th scope="col">Username</th>
-              <th scope="col">Email</th>
+              <th scope="col">Movie Name</th>
+              <th scope="col">Movie Description</th>
+              <th scope="col">Movie Quality</th>
               <th scope="col">Update</th>
               <th scope="col">Delete</th>
             </tr>
@@ -139,13 +139,13 @@
 
                <tr>
                 <td><?php echo $user_data['id']; ?></td>
-                <td><?php echo $user_data['emri']; ?></td>
-                <td><?php echo $user_data['username']; ?></td>
-                <td><?php echo $user_data['email']; ?></td>
+                <td><?php echo $user_data['movie_name']; ?></td>
+                <td><?php echo $user_data['movie_desc']; ?></td>
+                <td><?php echo $user_data['movie_quality']; ?></td>
                 <!-- If we want to update a user we need to link into editUsers.php -->
-                <td><a href="editUsers.php?id=<?= $user_data['id'];?>">Update</a></td>
+                <td><a href="edit.php?id=<?= $user_data['id'];?>">Update</a></td>
                   <!-- If we want to delete a user we need to link into deleteUsers.php -->
-                <td><a href="deleteUsers.php?id=<?= $user_data['id'];?>">Delete</a></td>
+                <td><a href="delete.php?id=<?= $user_data['id'];?>">Delete</a></td>
               </tr>
               
            <?php  } ?>
