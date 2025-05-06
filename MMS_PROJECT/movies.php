@@ -98,7 +98,7 @@ session_start();
 
         
         <br>
-        <button class="w-100 btn btn-lg btn-primary" type="submit" name="submit1">Add</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" name="submit">Add</button>
       </form>
       </div>
     </main>
