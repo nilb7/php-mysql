@@ -14,7 +14,7 @@
           header("Location: login.php");
     }
    
-    $sql = "SELECT * FROM movies";
+    $sql = "SELECT * FROM matches";
     $selectUsers = $conn->prepare($sql);
     $selectUsers->execute();
 
@@ -29,7 +29,6 @@
  <html>
  <head>
   <title>Dashboard</title>
-  <a href="movies.php" class="btn btn-primary">Add Movie</a>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -79,7 +78,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="list_movies.php">
+            <a class="nav-link" href="list_matches.php">
               <span data-feather="file"></span>
               Movies
             </a>
@@ -91,20 +90,6 @@
             </a>
           </li>
         </ul>
-
-
-        <li class="nav-item">
-              <a class="nav-link" href="home.php">
-               
-                Home
-              </a>
-            </li>
-          <li class="nav-item">
-          <a class="nav-link" href="bookings.php">
-            <span ></span>
-            Bookings
-          </a>
-        </li>
         </ul>
      
 
@@ -121,15 +106,15 @@
         
       </div>
 
-      <h2>Users</h2>
+      <h2>Matches</h2>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>
             <tr>
               <th scope="col">Id</th>
-              <th scope="col">Movie Name</th>
-              <th scope="col">Movie Description</th>
-              <th scope="col">Movie Quality</th>
+              <th scope="col">Match Name</th>
+              <th scope="col">Match Description</th>
+              <th scope="col">Match Seat</th>
               <th scope="col">Update</th>
               <th scope="col">Delete</th>
             </tr>
@@ -140,9 +125,9 @@
 
                <tr>
                 <td><?php echo $user_data['id']; ?></td>
-                <td><?php echo $user_data['movie_name']; ?></td>
-                <td><?php echo $user_data['movie_desc']; ?></td>
-                <td><?php echo $user_data['movie_quality']; ?></td>
+                <td><?php echo $user_data['match_name']; ?></td>
+                <td><?php echo $user_data['match_desc']; ?></td>
+                <td><?php echo $user_data['match_seat']; ?></td>
                 <!-- If we want to update a user we need to link into editUsers.php -->
                 <td><a href="edit.php?id=<?= $user_data['id'];?>">Update</a></td>
                   <!-- If we want to delete a user we need to link into deleteUsers.php -->
