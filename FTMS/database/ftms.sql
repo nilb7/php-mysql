@@ -10,7 +10,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users`(`emri`,`username`,`email`,`password`,`confirm_password`,`is_admin`) VALUES 
 ('John','Doe','johndoe@gmail.com','123456','123456','true'), 
-('Shpat','Berisha','shpat.berisha@gmail.com','654321','654321','false');
+('Shpat','Berisha','shpat.berisha@gmail.com','654321','654321','false'),
+('EdenKurtolli','edenik','edeni@gmail.com','edeneden','edeneden','false');
 
 
 CREATE TABLE `matches` (
