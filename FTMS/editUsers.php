@@ -84,6 +84,12 @@ $user_data=$selectUser->fetch();
   </div>
 </div>
 
+
+<h2>Edit user's details</h2>
+<div class="table-responsive">
+  
+  <form action="updateUsers.php" method="post">
+
 <div class="form-floating">
           <input type="number" class="form-control" id="floatingInput" placeholder="Id" name="id" value="<?php echo  $user_data['id'] ?>">
           <label for="floatingInput">Id</label>
@@ -127,8 +133,3 @@ $user_data=$selectUser->fetch();
 
 
 
-
-<h2>Edit user's details</h2>
-<div class="table-responsive">
-  
-  <form action="updateUsers.php" method="post">

@@ -1,9 +1,35 @@
+<?php 
+/*Creating a session  based on a session identifier, passed via a GET or POST request.
+  We will include config.php for connection with database.
+  We will fetch all datas from users in database and show them.
+  If a user is admin, he can update or delete a user data.
+  */
+    session_start();
 
-<!DOCTYPE html>
+
+    include_once('config.php');
+
+
+    if (empty($_SESSION['username'])) {
+          header("Location: login.php");
+    }
+   
+    $sql = "SELECT * FROM users";
+    $selectUsers = $conn->prepare($sql);
+    $selectUsers->execute();
+
+
+    $users_data = $selectUsers->fetchAll();
+  
+
+
+ ?>
+ 
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard</title>
   <style>
     * {
@@ -20,17 +46,20 @@
     }
 
     .sidebar {
-      width: 220px;
-      background-color:rgb(60, 179, 90);
+      width: 250px;
+      background-color:rgb(15, 182, 85);
       color: #ecf0f1;
       padding: 20px 0;
       position: fixed;
       height: 100%;
+      box-shadow: 2px 0 5px rgb(15, 182, 85);
     }
 
     .sidebar h2 {
       text-align: center;
       margin-bottom: 30px;
+      font-size: 24px;
+      font-weight: bold;
     }
 
     .sidebar a {
@@ -39,23 +68,27 @@
       color: #ecf0f1;
       text-decoration: none;
       transition: background 0.3s;
+      margin-bottom: 10px;
+      border-radius: 4px;
     }
 
     .sidebar a:hover {
-      background-color:rgb(4, 105, 4);
+      background-color:rgb(15, 182, 85);
     }
 
     .main-content {
-      margin-left: 220px;
+      margin-left: 250px;
       padding: 30px;
       flex: 1;
+      overflow-y: auto;
     }
 
     .header {
       background-color: #fff;
       padding: 15px 30px;
       border-bottom: 1px solid #ddd;
-      font-size: 20px;
+      font-size: 24px;
+      font-weight: bold;
     }
 
     .dashboard-widgets {
@@ -69,20 +102,66 @@
       background-color: #fff;
       padding: 20px;
       border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px rgb(15, 182, 85);
       flex: 1;
-      min-width: 200px;
+      min-width: 250px;
+      text-align: center;
+    }
+
+    .widget h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .widget p {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .table-responsive {
+      margin-top: 40px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgb(15, 182, 85);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color:rgb(15, 182, 85);
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #ecf0f1;
+    }
+
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
 
   </style>
 </head>
 <body>
-
   <div class="sidebar">
-    <h2>SupportersSeat </h2>
+    <h2>SupportersSeat</h2>
     <a href="dashboard.php">Dashboard</a>
     <a href="matches.php">Matches</a>
-    <a href="list_users.php">Users</a>
+
     <a href="logout.php">Logout</a>
   </div>
 
@@ -103,7 +182,34 @@
         <p>$7000</p>
       </div>
     </div>
-  </div>
 
+    <div class="table-responsive">
+      <h2>Users</h2>
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Emri</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <?php foreach ($users_data as $user_data) { ?> -->
+            <tr>
+              <td><?php echo $user_data['id']; ?></td>
+              <td><?php echo $user_data['emri']; ?></td>
+              <td><?php echo $user_data['username']; ?></td>
+              <td><?php echo $user_data['email']; ?></td>
+              <td><a href="editUsers.php?id=<?= $user_data['id']; ?>">Update</a></td>
+              <td><a href="deleteUsers.php?id=<?= $user_data['id']; ?>">Delete</a></td>
+            </tr>
+          <?php } ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </body>
 </html>
