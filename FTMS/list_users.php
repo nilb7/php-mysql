@@ -106,7 +106,7 @@
         
       </div>
 
-      <h2>Add Matche's Detailts</h2>
+      <h2>Matches</h2>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>

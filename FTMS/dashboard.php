@@ -82,6 +82,7 @@
     <h2>SupportersSeat </h2>
     <a href="dashboard.php">Dashboard</a>
     <a href="matches.php">Matches</a>
+    <a href="list_users.php">Users</a>
     <a href="logout.php">Logout</a>
   </div>
 

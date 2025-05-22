@@ -86,7 +86,7 @@
     </div>
     <button class="w-100 btn btn-lg btn-primary" type="submit" name="submit">Sign in</button>
     <br>
-    <p>Already have an account:<a href="signup.php" >Sign up</a> </p>
+    <p>Dont have an account:<a href="signup.php" >Sign up</a> </p>
   </form>
 </main>
 

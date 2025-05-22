@@ -1,29 +1,21 @@
-<?php 
-/*Creating a session  based on a session identifier, passed via a GET or POST request.
-  We will include config.php for connection with database.
-  We will fetch all datas from users in database and show them.
-  If a user is admin, he can update or delete a user data.
-  */
-    session_start();
+<?php
+
+session_start();
+
+include_once('config.php');
+
+$id=$_GET['id'];
+$sql="SELECT * FROM matches WHERE id=:id";
+
+$selectUser=$conn->prepare($sql);
+$selectUser->bindParam(':id',$id);
+$selectUser->execute();
+
+$user_data=$selectUser->fetch();
 
 
-    include_once('config.php');
+?>
 
-
-    if (empty($_SESSION['username'])) {
-          header("Location: login.php");
-    }
-   
-    $sql = "SELECT * FROM matches";
-    $selectUsers = $conn->prepare($sql);
-    $selectUsers->execute();
-
-
-    $users_data = $selectUsers->fetchAll();
-  
-
-
- ?>
 
 <!DOCTYPE html>
  <html>
@@ -43,7 +35,7 @@
   <meta name="theme-color" content="#7952b3">
  </head>
  <body>
- 
+
  <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#"><?php echo "Welcome to dashboard ".$_SESSION['username']; ?></a>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,84 +55,56 @@
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
-    
-
-        <li class="nav-item">
-              <a class="nav-link" href="home.php">
-                <span data-feather="file"></span>
-                Home
-              </a>
-            </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="dashboard.php">
               <span data-feather="home"></span>
               Dashboard
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="list_matches.php">
-              <span data-feather="file"></span>
-              Movies
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="bookings.php">
-              <span ></span>
-              Bookings
-            </a>
-          </li>
-        </ul>
-        </ul>
-     
+
+            </ul>
 
 
+       
+</div>
+</nav>
 
-        
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Dashboard</h1>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <div class="btn-group me-2">
+      <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+      <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+    </div>
+    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+      <span data-feather="calendar"></span>
+      This week
+    </button>
+  </div>
+</div>
+<form action="update.php" method="post">
+<div class="form-floating">
+          <input type="number" class="form-control" id="floatingInput" placeholder="Id" name="id" value="<?php echo  $user_data['id'] ?>">
+          <label for="floatingInput">Id</label>
+        </div>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="floatingInput" placeholder="match_name" name="match_name" value="<?php echo  $user_data['match_name'] ?>">
+          <label for="floatingInput">Match Name</label>
+        </div>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="floatingInput" placeholder="match_desc" name="match_desc" value="<?php echo  $user_data['match_desc'] ?>">
+          <label for="floatingInput">Match Description</label>
+        </div>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="floatingInput" placeholder="match_seat" name="match_seat" value="<?php echo  $user_data['match_seat'] ?>">
+          <label for="floatingInput">Match Seat</label>
+        </div>
+
+        <br>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" name="submit">Change</button>
+      </form>
       </div>
-    </nav>
-
-
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Dashboard</h1>
-        
-      </div>
-
-      <h2>Add Matche's Detailts</h2>
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Match Name</th>
-              <th scope="col">Match Description</th>
-              <th scope="col">Match Seat</th>
-              <th scope="col">Update</th>
-              <th scope="col">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($users_data as $user_data) { ?>
-
-
-               <tr>
-                <td><?php echo $user_data['id']; ?></td>
-                <td><?php echo $user_data['match_name']; ?></td>
-                <td><?php echo $user_data['match_desc']; ?></td>
-                <td><?php echo $user_data['match_seat']; ?></td>
-                <!-- If we want to update a user we need to link into editUsers.php -->
-                <td><a href="edit.php?id=<?= $user_data['id'];?>">Update</a></td>
-                  <!-- If we want to delete a user we need to link into deleteUsers.php -->
-                <td><a href="delete.php?id=<?= $user_data['id'];?>">Delete</a></td>
-              </tr>
-              
-           <?php  } ?>
-
-    
-           </tbody>
-        </table>
-      </div>
-     
     </main>
   </div>
 </div>
@@ -157,3 +121,14 @@
 
  </body>
  </html>
+
+
+
+
+
+
+
+<h2>Edit user's details</h2>
+<div class="table-responsive">
+  
+  <form action="update.php" method="post">

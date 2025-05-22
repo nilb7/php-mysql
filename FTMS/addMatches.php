@@ -7,7 +7,7 @@ if(Isset($_POST['submit'])){
     $match_seat=$_POST['match_seat'];
     $match_image=$_POST['match_image'];
 
-    $sql="INSERT INTO movies(match_name,match_desc,match_seat,movie_image) VALUES (:match_name,:match_desc,:match_seat,:match_image)";
+    $sql="INSERT INTO matches(match_name,match_desc,match_seat,movie_image) VALUES (:match_name,:match_desc,:match_seat,:match_image)";
 
     $insertMatch=$conn->prepare($sql);
 
