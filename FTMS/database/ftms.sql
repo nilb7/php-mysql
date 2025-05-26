@@ -26,3 +26,18 @@ CREATE TABLE `matches` (
 INSERT INTO `matches`(`match_name`,`match_desc`,`match_seat`,`match_photo`) VALUES 
 ('Paris Saint Germain - Inter','31 May 2025 , Allianz Arena','Section 239, Row 12, Seat 18','match1.png')
 ('Tottenham Hotspur - Manchester United','21 May 2025 , San Mames','Section 203, Row 2, Seat 5','match2.png')
+
+
+
+CREATE TABLE `bookings` (
+    `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `user_id` int(11) NOT NULL,
+    `match_id` int(11) NOT NULL,
+    `nr_tickets` int(255) NOT NULL,
+    `date` varchar(255) NOT NULL,
+    `is_approved` varchar (255) NOT NULL,
+    `time` varchar(255) NOT NULL
+    )
+
+
+INSERT INTO `bookings` (`user_id`,`match_id`,`nr_tickets`,`date`,`is_approved`,`time`) VALUES (1,1,2,'2025-5-31','TRUE','19:00')

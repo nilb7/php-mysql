@@ -2,22 +2,40 @@
 session_start();
 include_once('config.php');
 
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['id'])) {
     header("Location: login.php");
     exit();
 }
 
-$sql = "SELECT * FROM matches";
-$selectMatches = $conn->prepare($sql);
-$selectMatches->execute();
-$matches = $selectMatches->fetchAll(PDO::FETCH_ASSOC);
+$user_id = $_SESSION['id'];
+$is_admin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === 'true';
+
+if ($is_admin) {
+    $sql = "SELECT matches.match_name, users.email, bookings.id, bookings.nr_tickets, bookings.date, bookings.time, bookings.is_approved 
+            FROM matches 
+            INNER JOIN bookings ON matches.id = bookings.match_id 
+            INNER JOIN users ON users.id = bookings.user_id";
+} else {
+    $sql = "SELECT matches.match_name, users.email, bookings.id, bookings.nr_tickets, bookings.date, bookings.time, bookings.is_approved 
+            FROM matches 
+            INNER JOIN bookings ON matches.id = bookings.match_id 
+            INNER JOIN users ON users.id = bookings.user_id 
+            WHERE bookings.user_id = :user_id";
+}
+
+$selectBookings = $conn->prepare($sql);
+if (!$is_admin) {
+    $selectBookings->bindParam(':user_id', $user_id);
+}
+$selectBookings->execute();
+$bookings_data = $selectBookings->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Admin Dashboard - Matches</title>
+  <title>Bookings Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     * {
@@ -119,21 +137,6 @@ $matches = $selectMatches->fetchAll(PDO::FETCH_ASSOC);
       font-size: 18px;
       margin-bottom: 10px;
     }
-
-    .add-button {
-  background-color: rgb(15, 182, 85);
-  color: white;
-  padding: 12px 20px;
-  text-decoration: none;
-  font-size: 16px;
-  border-radius: 6px;
-  transition: background-color 0.3s;
-}
-
-.add-button:hover {
-  background-color: rgb(12, 150, 70);
-}
-
   </style>
 </head>
 <body>
@@ -149,45 +152,49 @@ $matches = $selectMatches->fetchAll(PDO::FETCH_ASSOC);
 <div class="main-content">
   <div class="header">
     <div class="welcome">Welcome, <?= htmlspecialchars($_SESSION['username']) ?>!</div>
-    Match Management
+    Match Bookings
   </div>
 
   <div class="table-container">
     <table>
       <thead>
         <tr>
-          <th>ID</th>
           <th>Match Name</th>
-          <th>Description</th>
-          <th>Seats</th>
-          <th>Update</th>
-          <th>Delete</th>
+          <th>User Email</th>
+          <th>Tickets</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Approved</th>
+          <?php if ($is_admin): ?>
+            <th>Actions</th>
+          <?php endif; ?>
         </tr>
       </thead>
       <tbody>
-        <?php if (!empty($matches)): ?>
-          <?php foreach ($matches as $match): ?>
-            <tr>
-              <td><?= htmlspecialchars($match['id']) ?></td>
-              <td><?= htmlspecialchars($match['match_name']) ?></td>
-              <td><?= htmlspecialchars($match['match_desc']) ?></td>
-              <td><?= htmlspecialchars($match['match_seat']) ?></td>
-              <td><a class="action-link" href="edit.php?id=<?= $match['id'] ?>">Update</a></td>
-              <td><a class="action-link" href="delete.php?id=<?= $match['id'] ?>">Delete</a></td>
-            </tr>
+        <?php if (!empty($bookings_data)): ?>
+          <?php foreach ($bookings_data as $booking): ?>
+          <tr>
+            <td><?= htmlspecialchars($booking['match_name']) ?></td>
+            <td><?= htmlspecialchars($booking['email']) ?></td>
+            <td><?= htmlspecialchars($booking['nr_tickets']) ?></td>
+            <td><?= htmlspecialchars($booking['date']) ?></td>
+            <td><?= htmlspecialchars($booking['time']) ?></td>
+            <td><?= $booking['is_approved'] ? 'Yes' : 'No' ?></td>
+            <?php if ($is_admin): ?>
+            <td>
+              <a class="action-link" href="approve.php?id=<?= $booking['id'] ?>">Approve</a>
+              <a class="action-link" href="decline.php?id=<?= $booking['id'] ?>">Decline</a>
+            </td>
+            <?php endif; ?>
+          </tr>
           <?php endforeach; ?>
         <?php else: ?>
           <tr>
-            <td colspan="6">No matches found.</td>
+            <td colspan="<?= $is_admin ? 7 : 6 ?>">No bookings found.</td>
           </tr>
         <?php endif; ?>
       </tbody>
     </table>
-
-      <div style="margin-top: 20px; text-align: right;">
-      <a href="matches.php" class="add-button">Add a Match</a>
-    </div>
-
   </div>
 </div>
 

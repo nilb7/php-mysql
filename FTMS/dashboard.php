@@ -65,22 +65,21 @@
     .sidebar a {
       display: block;
       padding: 12px 20px;
-      color: #ecf0f1;
+      color: white;
       text-decoration: none;
-      transition: background 0.3s;
-      margin-bottom: 10px;
       border-radius: 4px;
+      margin-bottom: 10px;
+      transition: background 0.3s;
     }
 
     .sidebar a:hover {
-      background-color:rgb(15, 182, 85);
+      background-color: rgba(255, 255, 255, 0.2);
     }
 
     .main-content {
       margin-left: 250px;
       padding: 30px;
       flex: 1;
-      overflow-y: auto;
     }
 
     .header {
@@ -160,9 +159,11 @@
   <div class="sidebar">
     <h2>SupportersSeat</h2>
     <a href="dashboard.php">Dashboard</a>
-    <a href="matches.php">Matches</a>
+    <a href="list_matches.php">Matches</a>
+         <a href="bookings.php">Bookings</a>
 
     <a href="logout.php">Logout</a>
+
   </div>
 
   <div class="main-content">

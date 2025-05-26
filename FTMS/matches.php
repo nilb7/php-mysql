@@ -21,9 +21,9 @@
 
     .sidebar {
       width: 220px;
-      background-color: rgb(60, 179, 90);
+      background-color: rgb(15, 182, 85);
       color: #ecf0f1;
-      padding: 20px 0;
+      padding: 12px 20px;
       position: fixed;
       height: 100%;
     }
@@ -42,7 +42,7 @@
     }
 
     .sidebar a:hover {
-      background-color: rgb(4, 105, 4);
+      background-color: rgb(15, 182, 85);
     }
 
     .main-content {
@@ -82,7 +82,7 @@
     .btn-primary {
       width: 100%;
       padding: 10px;
-      background-color: rgb(60, 179, 90);
+      background-color: rgb(15, 182, 85);
       border: none;
       color: white;
       font-size: 16px;
@@ -90,18 +90,18 @@
     }
 
     .btn-primary:hover {
-      background-color: rgb(4, 105, 4);
+      background-color: rgb(15, 182, 85);
     }
   </style>
 </head>
 <body>
-
   <div class="sidebar">
     <h2>SupportersSeat</h2>
     <a href="dashboard.php">Dashboard</a>
-    <a href="matches.php">Matches</a>
-    <a href="list_users.php">Users</a>
+    <a href="list_matches.php">Matches</a>
+         <a href="bookings.php">Bookings</a>
     <a href="logout.php">Logout</a>
+
   </div>
 
  <div class="main-content">
