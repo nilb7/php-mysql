@@ -8,7 +8,7 @@
     $moive_desc=$_POST['match_desc'];
     $movie_quality=$_POST['match_seat'];
 
-    $sql="UPDATE users SET id=:id,match_name=:match_name,match_desc=:match_seat WHERE id=:id";
+    $sql="UPDATE users SET id=:id,match_name=:match_name,match_desc=:match_desc,,match_seat=:match_seat WHERE id=:id";
 
     $prep=$conn->prepare($sql);
     $prep->bindParam(':id',$id);
