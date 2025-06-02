@@ -129,7 +129,10 @@
           <label for="match_image">Match Image</label>
         </div>
 
-        <button type="submit" class="btn-primary" name="submit">Add Match</button>
+      <div style="margin-top: 20px; text-align: center;">
+<button class="w-100 btn btn-lg btn-primary" type="submit" name="submit">Add</button>
+</div>
+
       </form>
     </div>
   </div>
