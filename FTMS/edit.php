@@ -17,6 +17,9 @@ $user_data=$selectUser->fetch();
 ?>
 
 
+
+
+
 <!DOCTYPE html>
  <html>
  <head>
@@ -83,7 +86,13 @@ $user_data=$selectUser->fetch();
     </button>
   </div>
 </div>
-<form action="update.php" method="post">
+
+
+<h2>Edit matche's details</h2>
+<div class="table-responsive">
+  
+  <form action="updateMatches.php" method="post">
+
 <div class="form-floating">
           <input type="number" class="form-control" id="floatingInput" placeholder="Id" name="id" value="<?php echo  $user_data['id'] ?>">
           <label for="floatingInput">Id</label>
@@ -94,7 +103,7 @@ $user_data=$selectUser->fetch();
         </div>
         <div class="form-floating">
           <input type="text" class="form-control" id="floatingInput" placeholder="match_desc" name="match_desc" value="<?php echo  $user_data['match_desc'] ?>">
-          <label for="floatingInput">Match Description</label>
+          <label for="floatingInput">Match Desc</label>
         </div>
         <div class="form-floating">
           <input type="text" class="form-control" id="floatingInput" placeholder="match_seat" name="match_seat" value="<?php echo  $user_data['match_seat'] ?>">
@@ -118,17 +127,18 @@ $user_data=$selectUser->fetch();
 </html>
 
 
-
- </body>
- </html>
-
-
+  
+</body>
+</html>
 
 
-
-
-
-<h2>Edit user's details</h2>
+ <h2>Edit matches's details</h2>
 <div class="table-responsive">
   
   <form action="update.php" method="post">
+
+
+
+
+
+

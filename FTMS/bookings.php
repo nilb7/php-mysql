@@ -8,25 +8,20 @@ if (!isset($_SESSION['id'])) {
 }
 
 $user_id = $_SESSION['id'];
-$is_admin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === 'true';
 
-if ($is_admin) {
-    $sql = "SELECT matches.match_name, users.email, bookings.id, bookings.nr_tickets, bookings.date, bookings.time, bookings.is_approved 
-            FROM matches 
-            INNER JOIN bookings ON matches.id = bookings.match_id 
-            INNER JOIN users ON users.id = bookings.user_id";
-} else {
+
+
     $sql = "SELECT matches.match_name, users.email, bookings.id, bookings.nr_tickets, bookings.date, bookings.time, bookings.is_approved 
             FROM matches 
             INNER JOIN bookings ON matches.id = bookings.match_id 
             INNER JOIN users ON users.id = bookings.user_id 
             WHERE bookings.user_id = :user_id";
-}
+
 
 $selectBookings = $conn->prepare($sql);
-if (!$is_admin) {
+
     $selectBookings->bindParam(':user_id', $user_id);
-}
+
 $selectBookings->execute();
 $bookings_data = $selectBookings->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -165,9 +160,6 @@ $bookings_data = $selectBookings->fetchAll(PDO::FETCH_ASSOC);
           <th>Date</th>
           <th>Time</th>
           <th>Approved</th>
-          <?php if ($is_admin): ?>
-            <th>Actions</th>
-          <?php endif; ?>
         </tr>
       </thead>
       <tbody>
@@ -180,17 +172,15 @@ $bookings_data = $selectBookings->fetchAll(PDO::FETCH_ASSOC);
             <td><?= htmlspecialchars($booking['date']) ?></td>
             <td><?= htmlspecialchars($booking['time']) ?></td>
             <td><?= $booking['is_approved'] ? 'Yes' : 'No' ?></td>
-            <?php if ($is_admin): ?>
             <td>
               <a class="action-link" href="approve.php?id=<?= $booking['id'] ?>">Approve</a>
               <a class="action-link" href="decline.php?id=<?= $booking['id'] ?>">Decline</a>
             </td>
-            <?php endif; ?>
           </tr>
           <?php endforeach; ?>
         <?php else: ?>
           <tr>
-            <td colspan="<?= $is_admin ? 7 : 6 ?>">No bookings found.</td>
+            <td colspan="<?= $is_admin ? 7 : 6 ?>>No bookings found.</td>
           </tr>
         <?php endif; ?>
       </tbody>
